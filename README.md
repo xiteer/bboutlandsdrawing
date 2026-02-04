@@ -48,3 +48,11 @@ This app uses Vercel Blob for persistent storage of drawing results.
 npm run build
 npm start
 ```
+
+## TODO
+
+- [ ] **Migrate from proxy.ts to Next.js 15+ auth patterns** - Currently using the `proxy.ts` file convention (formerly `middleware.ts`) for authentication. For long-term maintainability, consider migrating to:
+  - Server Actions for login/logout
+  - Route handlers with proper auth checks
+  - Layout-level authentication
+  - See: https://nextjs.org/docs/messages/middleware-to-proxy
