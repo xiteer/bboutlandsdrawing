@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { track } from '@vercel/analytics';
 
 export default function LoginPage() {
   const [password, setPassword] = useState('');
@@ -25,6 +26,7 @@ export default function LoginPage() {
       });
 
       if (response.ok) {
+        track('Login Success');
         router.push('/admin');
         router.refresh();
       } else {

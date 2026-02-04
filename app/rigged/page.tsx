@@ -21,8 +21,8 @@ export default function RiggedPage() {
             <h2 className="text-2xl font-bold mb-4">Is it really rigged? 🤔</h2>
             <p className="text-gray-300 leading-relaxed">
               Short answer: <span className="text-white font-semibold">Nope!</span> But we understand the suspicion. 
-              Whenever someone loses, it's natural to wonder if the dice were loaded. So let's break down exactly 
-              how our drawing system works and why it's as fair as it gets.
+              Whenever someone loses, it&apos;s natural to wonder if the dice were loaded. So let&apos;s break down exactly 
+              how our drawing system works and why it&apos;s as fair as it gets.
             </p>
           </div>
 
@@ -62,7 +62,7 @@ export default function RiggedPage() {
                 <div>
                   <h3 className="font-semibold text-white mb-2">Highest Scores Win</h3>
                   <p className="leading-relaxed">
-                    Everyone's highest roll is compared, and prizes are awarded from highest to lowest. 
+                    Everyone&apos;s highest roll is compared, and prizes are awarded from highest to lowest. 
                     Simple as that!
                   </p>
                 </div>
@@ -75,12 +75,12 @@ export default function RiggedPage() {
             <h2 className="text-2xl font-bold mb-4">The Random Number Generator 🎰</h2>
             <div className="space-y-4 text-gray-300">
               <p className="leading-relaxed">
-                We use JavaScript's built-in <code className="px-2 py-1 bg-black rounded text-sm font-mono text-white">Math.random()</code> function, 
-                which is powered by your browser's cryptographically secure random number generator.
+                We use JavaScript&apos;s built-in <code className="px-2 py-1 bg-black rounded text-sm font-mono text-white">Math.random()</code> function, 
+                which is powered by your browser&apos;s cryptographically secure random number generator.
               </p>
               
               <div className="bg-black border border-zinc-800 rounded-lg p-4 font-mono text-sm">
-                <div className="text-gray-500">// The actual code used for each roll:</div>
+                <div className="text-gray-500">{`// The actual code used for each roll:`}</div>
                 <div className="text-white mt-2">
                   const roll = Math.floor(Math.random() * 1000) + 1;
                 </div>
@@ -93,9 +93,9 @@ export default function RiggedPage() {
             </div>
           </div>
 
-          {/* Why It's Fair */}
+          {/* Why It&apos;s Fair */}
           <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-            <h2 className="text-2xl font-bold mb-4">Why It's Fair ⚖️</h2>
+            <h2 className="text-2xl font-bold mb-4">Why It&apos;s Fair ⚖️</h2>
             <div className="space-y-4 text-gray-300">
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
@@ -118,7 +118,7 @@ export default function RiggedPage() {
                   <span className="text-green-400 text-xl">✓</span>
                   <div>
                     <span className="font-semibold text-white">No Manipulation:</span> The rolls happen in your browser 
-                    using standard JavaScript. There's no server-side trickery or hidden algorithms.
+                    using standard JavaScript. There&apos;s no server-side trickery or hidden algorithms.
                   </div>
                 </div>
 
@@ -138,7 +138,7 @@ export default function RiggedPage() {
             <h2 className="text-2xl font-bold mb-4">The Math (For the Nerds) 🤓</h2>
             <div className="space-y-4 text-gray-300">
               <p className="leading-relaxed">
-                If you're curious about the probability of rolling high with multiple entries:
+                If you&apos;re curious about the probability of rolling high with multiple entries:
               </p>
               
               <div className="bg-black border border-zinc-800 rounded-lg p-4 space-y-2 text-sm">
@@ -162,7 +162,7 @@ export default function RiggedPage() {
             <h2 className="text-2xl font-bold mb-4">Still Suspicious? 🕵️</h2>
             <div className="space-y-4 text-gray-300">
               <p className="leading-relaxed">
-                We get it. Sometimes RNG just doesn't go your way. But remember:
+                We get it. Sometimes RNG just doesn&apos;t go your way. But remember:
               </p>
               
               <ul className="space-y-2 list-disc list-inside">
@@ -173,7 +173,7 @@ export default function RiggedPage() {
               </ul>
 
               <p className="leading-relaxed mt-4">
-                If you still think it's rigged... well, maybe you just need to earn more entries next month! 😉
+                If you still think it&apos;s rigged... well, maybe you just need to earn more entries next month! 😉
               </p>
             </div>
           </div>

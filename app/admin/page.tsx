@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { track } from '@vercel/analytics';
 
 interface Player {
   name: string;
@@ -51,6 +52,10 @@ export default function AdminPage() {
       if (data.prizes) {
         setPrizes(data.prizes);
       }
+      track('Sample Data Loaded', {
+        playerCount: data.players?.length || 0,
+        prizeCount: data.prizes?.length || 0,
+      });
     } catch (error) {
       console.error('Error loading sample data:', error);
       alert('Could not load sample data. Make sure sample-data.json exists in the public folder.');
@@ -166,6 +171,14 @@ export default function AdminPage() {
       if (response.ok) {
         const data = await response.json();
         setDrawingId(data.id);
+        
+        // Track drawing conducted event
+        track('Drawing Conducted', {
+          drawingName: drawingName || 'Unnamed Drawing',
+          playerCount: players.length,
+          prizeCount: prizes.length,
+          totalEntries: players.reduce((sum, p) => sum + p.entries, 0),
+        });
       }
     } catch (error) {
       console.error('Error saving drawing:', error);
@@ -179,6 +192,12 @@ export default function AdminPage() {
       const url = `${window.location.origin}/drawing/${drawingId}`;
       navigator.clipboard.writeText(url);
       alert('Link copied to clipboard!');
+      
+      // Track link copy event
+      track('Drawing Link Copied', {
+        drawingId,
+        drawingName: drawingName || 'Unnamed Drawing',
+      });
     }
   };
 

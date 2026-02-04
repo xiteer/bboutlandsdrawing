@@ -3,6 +3,7 @@ import { head } from '@vercel/blob';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import CopyLinkButton from './CopyLinkButton';
+import DrawingViewTracker from './DrawingViewTracker';
 
 interface Player {
   name: string;
@@ -101,6 +102,12 @@ export default async function DrawingPage({ params }: { params: Promise<{ id: st
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <DrawingViewTracker 
+        drawingId={drawing.id}
+        drawingName={drawing.name}
+        playerCount={drawing.players.length}
+        prizeCount={drawing.prizes.length}
+      />
       <div className="fixed inset-0 bg-gradient-to-br from-black via-zinc-900 to-black -z-10" />
       
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

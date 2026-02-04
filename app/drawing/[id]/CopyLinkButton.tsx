@@ -1,9 +1,16 @@
 'use client';
 
+import { track } from '@vercel/analytics';
+
 export default function CopyLinkButton() {
   const copyLink = () => {
     navigator.clipboard.writeText(window.location.href);
     alert('Link copied to clipboard!');
+    
+    // Track link copy from public drawing page
+    track('Public Drawing Link Copied', {
+      url: window.location.href,
+    });
   };
 
   return (
