@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
-import { readFile } from 'fs/promises';
-import { existsSync } from 'fs';
-import path from 'path';
+import { head } from '@vercel/blob';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import CopyLinkButton from './CopyLinkButton';
@@ -34,14 +32,12 @@ interface Drawing {
 
 async function getDrawing(id: string): Promise<Drawing | null> {
   try {
-    const filePath = path.join(process.cwd(), 'data', 'drawings', `${id}.json`);
+    // Get blob details
+    const blobDetails = await head(`drawings/${id}.json`);
     
-    if (!existsSync(filePath)) {
-      return null;
-    }
-    
-    const data = await readFile(filePath, 'utf-8');
-    return JSON.parse(data);
+    // Fetch the blob content
+    const response = await fetch(blobDetails.url);
+    return await response.json();
   } catch (error) {
     console.error('Error loading drawing:', error);
     return null;

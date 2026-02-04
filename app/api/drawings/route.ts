@@ -1,17 +1,6 @@
 import { NextResponse } from 'next/server';
-import { writeFile, readFile, mkdir } from 'fs/promises';
-import { existsSync } from 'fs';
-import path from 'path';
+import { put, head } from '@vercel/blob';
 import { verifySession } from '@/app/lib/session';
-
-const DRAWINGS_DIR = path.join(process.cwd(), 'data', 'drawings');
-
-// Ensure data directory exists
-async function ensureDataDir() {
-  if (!existsSync(DRAWINGS_DIR)) {
-    await mkdir(DRAWINGS_DIR, { recursive: true });
-  }
-}
 
 export async function POST(request: Request) {
   // Verify user is authenticated
@@ -36,11 +25,13 @@ export async function POST(request: Request) {
       ...data,
     };
     
-    await ensureDataDir();
-    const filePath = path.join(DRAWINGS_DIR, `${id}.json`);
-    await writeFile(filePath, JSON.stringify(drawing, null, 2));
+    // Store in Vercel Blob
+    const blob = await put(`drawings/${id}.json`, JSON.stringify(drawing, null, 2), {
+      access: 'public',
+      contentType: 'application/json',
+    });
     
-    return NextResponse.json({ id, success: true });
+    return NextResponse.json({ id, success: true, url: blob.url });
   } catch (error) {
     console.error('Error saving drawing:', error);
     return NextResponse.json(
@@ -61,20 +52,34 @@ export async function GET(request: Request) {
         { status: 400 }
       );
     }
+
+    // Validate ID format (should be numeric timestamp)
+    if (!/^\d+$/.test(id)) {
+      return NextResponse.json(
+        { error: 'Invalid drawing ID format' },
+        { status: 400 }
+      );
+    }
     
-    const filePath = path.join(DRAWINGS_DIR, `${id}.json`);
-    
-    if (!existsSync(filePath)) {
+    // Check if blob exists and fetch content
+    try {
+      const blobDetails = await head(`drawings/${id}.json`);
+      
+      // Fetch the blob content
+      const response = await fetch(blobDetails.url);
+      if (!response.ok) {
+        throw new Error('Failed to fetch blob content');
+      }
+      
+      const drawing = await response.json();
+      
+      return NextResponse.json(drawing);
+    } catch (error) {
       return NextResponse.json(
         { error: 'Drawing not found' },
         { status: 404 }
       );
     }
-    
-    const data = await readFile(filePath, 'utf-8');
-    const drawing = JSON.parse(data);
-    
-    return NextResponse.json(drawing);
   } catch (error) {
     console.error('Error loading drawing:', error);
     return NextResponse.json(

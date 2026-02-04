@@ -19,12 +19,28 @@ Install dependencies:
 npm install
 ```
 
+Create a `.env.local` file with required environment variables:
+```bash
+ADMIN_PASSWORD=your-password-here
+SESSION_SECRET=your-secret-key-here
+BLOB_READ_WRITE_TOKEN=your-vercel-blob-token
+```
+
 Run the development server:
 ```bash
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Deployment
+
+This app uses Vercel Blob for persistent storage of drawing results.
+
+1. Deploy to Vercel (connects to your GitHub repo)
+2. Add environment variables in Vercel dashboard
+3. Create a Vercel Blob store in the Storage tab
+4. Pull environment variables locally: `vercel env pull`
 
 ## Build for Production
 

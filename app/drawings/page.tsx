@@ -73,12 +73,6 @@ export default function DrawingsPage() {
         {drawings.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-gray-400 text-lg mb-4">No drawings yet</p>
-            <Link
-              href="/"
-              className="text-white hover:text-gray-300 underline"
-            >
-              Create your first drawing
-            </Link>
           </div>
         ) : (
           <div className="space-y-4">
